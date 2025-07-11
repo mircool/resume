@@ -1,0 +1,60 @@
+{% extends "base" %}
+
+{% block content %}
+<div class="container">
+    <section class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-briefcase"></i>
+            工作经验
+        </h1>
+        <p class="page-subtitle">我的职业发展历程</p>
+    </section>
+
+    <div class="experience-detailed">
+        {% for experience in work_experiences %}
+        <div class="experience-card">
+            <div class="experience-header">
+                <h2 class="experience-position">{{ experience.position }}</h2>
+                <h3 class="experience-company">{{ experience.company }}</h3>
+                <div class="experience-duration">
+                    <i class="fas fa-calendar-alt"></i>
+                    {{ experience.start_date }} - 
+                    {% if experience.end_date %}
+                        {{ experience.end_date }}
+                    {% else %}
+                        至今
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if experience.description %}
+            <div class="experience-description">
+                <h4>工作描述</h4>
+                <p>{{ experience.description }}</p>
+            </div>
+            {% endif %}
+            
+            {% if experience.achievements %}
+            <div class="experience-achievements">
+                <h4>主要成就</h4>
+                <div class="achievements-content">
+                    {% set achievements_lines = experience.achievements | split(pat="\n") %}
+                    {% for line in achievements_lines %}
+                        {% if line | trim %}
+                            <p>{{ line | trim }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="back-link">
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> 返回首页
+        </a>
+    </div>
+</div>
+{% endblock %}

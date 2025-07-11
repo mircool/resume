@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS education;
+DROP TABLE IF EXISTS work_experiences;
+DROP TABLE IF EXISTS skills;
+DROP TABLE IF EXISTS personal_info;

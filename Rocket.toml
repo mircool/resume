@@ -1,0 +1,7 @@
+[default]
+port = 8083
+address = "127.0.0.1"
+template_dir = "templates"
+
+[default.databases.resume_db]
+url = "resume.db"

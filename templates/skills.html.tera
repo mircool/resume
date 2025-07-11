@@ -1,0 +1,61 @@
+{% extends "base" %}
+
+{% block content %}
+<div class="container">
+    <section class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-code"></i>
+            技能详情
+        </h1>
+        <p class="page-subtitle">我的技术技能和专业能力</p>
+    </section>
+
+    <div class="skills-detailed">
+        {% for category, skills in skills_by_category %}
+        <div class="skill-category-detailed">
+            <h2 class="skill-category-title-detailed">{{ category }}</h2>
+            <div class="skills-grid">
+                {% for skill in skills %}
+                <div class="skill-card">
+                    <h3 class="skill-card-title">{{ skill.name }}</h3>
+                    <div class="skill-proficiency">
+                        <div class="skill-level-bar">
+                            <div class="skill-level-fill" style="width: {{ skill.proficiency * 20 }}%"></div>
+                        </div>
+                        <span class="skill-level-text">
+                            {% if skill.proficiency == 5 %}
+                                专家级
+                            {% elif skill.proficiency == 4 %}
+                                熟练
+                            {% elif skill.proficiency == 3 %}
+                                中等
+                            {% elif skill.proficiency == 2 %}
+                                初级
+                            {% else %}
+                                入门
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="skill-stars">
+                        {% for i in range(end=5) %}
+                            {% if i < skill.proficiency %}
+                                <i class="fas fa-star filled"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="back-link">
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> 返回首页
+        </a>
+    </div>
+</div>
+{% endblock %}

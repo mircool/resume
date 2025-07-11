@@ -1,0 +1,175 @@
+{% extends "base" %}
+
+{% block content %}
+<div class="container">
+    <!-- 个人信息部分 -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="profile-image">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="hero-text">
+                <h1 class="hero-title">{{ personal_info.name }}</h1>
+                <h2 class="hero-subtitle">{{ personal_info.title }}</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>{{ personal_info.email }}</span>
+                    </div>
+                    {% if personal_info.phone %}
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>{{ personal_info.phone }}</span>
+                    </div>
+                    {% endif %}
+                    {% if personal_info.location %}
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ personal_info.location }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if personal_info.summary %}
+                <p class="hero-summary">{{ personal_info.summary }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能概览 -->
+    <section class="section">
+        <h2 class="section-title">
+            <i class="fas fa-code"></i>
+            技能概览
+        </h2>
+        <div class="skills-overview">
+            {% for category, skills in skills_by_category %}
+            <div class="skill-category">
+                <h3 class="skill-category-title">{{ category }}</h3>
+                <div class="skill-list">
+                    {% for skill in skills %}
+                    <div class="skill-item">
+                        <span class="skill-name">{{ skill.name }}</span>
+                        <div class="skill-level">
+                            {% for i in range(end=5) %}
+                                {% if i < skill.proficiency %}
+                                    <i class="fas fa-star filled"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="section-link">
+            <a href="/skills" class="btn btn-outline">查看详细技能 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- 工作经验概览 -->
+    <section class="section">
+        <h2 class="section-title">
+            <i class="fas fa-briefcase"></i>
+            工作经验
+        </h2>
+        <div class="timeline">
+            {% for experience in work_experiences %}
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">{{ experience.position }}</h3>
+                    <h4 class="timeline-company">{{ experience.company }}</h4>
+                    <div class="timeline-date">
+                        {{ experience.start_date }} - 
+                        {% if experience.end_date %}
+                            {{ experience.end_date }}
+                        {% else %}
+                            至今
+                        {% endif %}
+                    </div>
+                    {% if experience.description %}
+                    <p class="timeline-description">{{ experience.description }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="section-link">
+            <a href="/experience" class="btn btn-outline">查看详细经验 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- 项目经验概览 -->
+    <section class="section">
+        <h2 class="section-title">
+            <i class="fas fa-project-diagram"></i>
+            项目经验
+        </h2>
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card">
+                <h3 class="project-title">{{ project.name }}</h3>
+                <p class="project-description">{{ project.description }}</p>
+                {% if project.technologies %}
+                <div class="project-tech">
+                    <strong>技术栈：</strong>{{ project.technologies }}
+                </div>
+                {% endif %}
+                <div class="project-links">
+                    {% if project.url %}
+                    <a href="{{ project.url }}" target="_blank" class="project-link">
+                        <i class="fas fa-external-link-alt"></i> 查看项目
+                    </a>
+                    {% endif %}
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="section-link">
+            <a href="/projects" class="btn btn-outline">查看所有项目 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- 教育背景 -->
+    <section class="section">
+        <h2 class="section-title">
+            <i class="fas fa-graduation-cap"></i>
+            教育背景
+        </h2>
+        <div class="education-list">
+            {% for edu in education %}
+            <div class="education-item">
+                <h3 class="education-degree">{{ edu.degree }}</h3>
+                <h4 class="education-institution">{{ edu.institution }}</h4>
+                {% if edu.field_of_study %}
+                <p class="education-field">专业：{{ edu.field_of_study }}</p>
+                {% endif %}
+                <div class="education-date">
+                    {{ edu.start_date }} - 
+                    {% if edu.end_date %}
+                        {{ edu.end_date }}
+                    {% else %}
+                        至今
+                    {% endif %}
+                </div>
+                {% if edu.gpa %}
+                <p class="education-gpa">GPA: {{ edu.gpa }}</p>
+                {% endif %}
+                {% if edu.description %}
+                <p class="education-description">{{ edu.description }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
